@@ -3,78 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hyodo | Next Gen Portfolio</title>
+    <title>Hyodo's Advanced Portfolio</title>
+    <link rel="icon" href="https://example.com/your-favicon.png" type="image/png"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0b0f19;
-            --accent: #00d4ff;
-            --card: #161b22;
-        }
-        body {
-            margin: 0; background: var(--bg); color: white;
-            font-family: 'Inter', sans-serif; overflow-x: hidden;
-        }
-        /* ヒーローセクションをさらに豪華に */
-        .hero {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0b0f19 100%);
-        }
-        .hero h1 {
-            font-size: clamp(2rem, 8vw, 5rem);
-            text-transform: uppercase; letter-spacing: 5px;
-            margin: 0; transition: 0.5s;
-        }
-        .hero h1:hover { color: var(--accent); text-shadow: 0 0 20px var(--accent); }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 50px 20px; }
-        
-        /* カードのデザイン */
-        .card-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    <style>
+        /* CSS Variables for easy theme changes */
+        :root {
+            --bg-dark: #0f172a;
+            --bg-light: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --accent-main: #3b82f6; /* Blue */
+            --accent-hover: #2563eb;
+            --border-color: #334155;
+            --gradient-start: #3b82f6;
+            --gradient-end: #8b5cf6; /* Purple */
+            --header-height: 70px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            margin-top: 0;
+            color: var(--text-primary);
+        }
+
+        a {
+            color: var(--accent-main);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Utility classes */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            min-height: calc(100vh - var(--header-height)); /* Ensure sections are tall */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-center { text-align: center; }
+
+        /* Header (Navigation) */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(15, 23, 42, 0.9); /* Semi-transparent */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .header .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .header nav ul li {
+            margin-left: 30px;
+        }
+        .header nav ul li a {
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: 1.05rem;
+            position: relative;
+        }
+        .header nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: var(--accent-main);
+            transition: width 0.3s ease;
+        }
+        .header nav ul li a:hover::after,
+        .header nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        #hero {
+            text-align: center;
+            height: 100vh; /* Full viewport height */
+            background: radial-gradient(circle at 50% 50%, var(--bg-light) 0%, var(--bg-dark) 100%);
+            padding-top: var(--header-height); /* Push content below header */
+        }
+        #hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        #hero p {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        .hero-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            color: var(--text-primary);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .hero-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* About Section */
+        #about .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--gradient-start);
+            box-shadow: 0 0 20px rgba(var(--gradient-start), 0.5);
+            margin-bottom: 30px;
+        }
+        #about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* Skills Section */
+        #skills .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .skill-item {
+            background-color: var(--bg-light);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .skill-item:hover {
+            transform: translateY(-8px);
+            background-color: #2c394f;
+        }
+        .skill-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--accent-main);
+        }
+        .skill-item p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Projects Section */
+        #projects .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            margin-top: 40px;
         }
-        article {
-            background: var(--card); padding: 40px; border-radius: 20px;
-            border: 1px solid #30363d; cursor: pointer;
+        .project-card {
+            background-color: var(--bg-light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
         }
-        
-        /* ボタンのアニメーション */
-        .btn {
-            padding: 15px 40px; background: transparent; color: var(--accent);
-            border: 2px solid var(--accent); border-radius: 30px;
-            text-decoration: none; font-weight: bold; transition: 0.3s;
-            margin-top: 30px;
+        .project-card:hover {
+            transform: translateY(-8px);
         }
-        .btn:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 30px var(--accent); }
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .project-content {
+            padding: 25px;
+        }
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .project-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .project-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent-main);
+            color: var(--text-primary);
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        .project-link:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Contact Section */
+        #contact form {
+            max-width: 600px;
+            margin: 40px auto 0;
+            background-color: var(--bg-light);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+        }
+        #contact label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        #contact input[type="text"],
+        #contact input[type="email"],
+        #contact textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-size: 1rem;
+            box-sizing: border-box; /* Include padding in width */
+        }
+        #contact input[type="text"]:focus,
+        #contact input[type="email"]:focus,
+        #contact textarea:focus {
+            border-color: var(--accent-main);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+        #contact textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        #contact button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            color: var(--text-primary);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #contact button[type="submit"]:hover {
+            opacity: 0.9;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--bg-light);
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Mobile Menu (Hamburger) */
+        .mobile-menu-icon {
+            display: none; /* Hidden by default on desktop */
+            font-size: 2rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            z-index: 1001;
+        }
+        @media (max-width: 768px) {
+            .header nav {
+                display: none; /* Hide desktop nav */
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background-color: rgba(15, 23, 42, 0.95);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                padding-bottom: 20px;
+            }
+            .header nav.active {
+                display: flex; /* Show when active */
+            }
+            .header nav ul {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .header nav ul li {
+                margin: 15px 0;
+            }
+            .mobile-menu-icon {
+                display: block; /* Show hamburger icon */
+            }
+            #hero h1 { font-size: 2.5rem; }
+            #hero p { font-size: 1.1rem; }
+            .section { padding: 60px 0; }
+        }
     </style>
 </head>
 <body>
 
-    <section class="hero">
-        <h1 data-aos="zoom-in">HYODO</h1>
-        <p data-aos="fade-up" data-aos-delay="300">Creative Web Developer & Innovator</p>
-        <a href="#about" class="btn" data-aos="fade-up" data-aos-delay="600">Explore More</a>
+    <header class="header">
+        <div class="logo">Hyodo.dev</div>
+        <div class="mobile-menu-icon" id="mobileMenuIcon">&#9776;</div> <nav id="mainNav">
+            <ul>
+                <li><a href="#hero" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero" class="section">
+        <div class="container" data-aos="fade-up">
+            <h1>Hi, I'm Hyodo.</h1>
+            <p>
+                GitHub Pagesを活用し、モダンでレスポンシブなウェブサイトを構築しています。<br>
+                最新技術とデザインを融合させ、情報を魅力的に伝えるお手伝いをします。
+            </p>
+            <a href="#projects" class="hero-button" data-aos="zoom-in" data-aos-delay="600">My Projects</a>
+        </div>
     </section>
 
-    <div class="container" id="about">
-        <div class="card-grid">
-            <article data-aos="fade-right">
-                <h2>Innovative Tech</h2>
-                <p>最新のAI技術とGitHubを活用し、次世代のWeb体験を構築します。</p>
-            </article>
-            <article data-aos="fade-left" data-aos-delay="200">
-                <h2>Fast & Secure</h2>
-                <p>GitHub Pagesによる高速な配信と、堅牢なセキュリティを両立。</p>
-            </article>
+    <section id="about" class="section">
+        <div class="container text-center" data-aos="fade-up">
+            <img src="https://via.placeholder.com/200" alt="Hyodo's Profile" class="profile-img" data-aos="fade-zoom-in" data-aos-delay="200">
+            <h2>About Me</h2>
+            <p data-aos="fade-up" data-aos-delay="400">
+                私はウェブ開発とデザインに情熱を注ぐHyodoです。特に、GitHub Pagesを使った高速なサイト構築と、ユーザー体験を最大化するインタラクティブなデザインを得意としています。<br>
+                新しい技術を学び、それを具体的な形にすることに喜びを感じます。このポートフォリオは、私の技術と創造性を示すためのものです。
+            </p>
         </div>
-    </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container" data-aos="fade-up">
+            <h2 class="text-center">My Skills</h2>
+            <div class="skill-grid">
+                <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Web Development</h3>
+                    <p>HTML5, CSS3 (Flexbox/Grid), JavaScript, Git/GitHub, Responsive Design</p>
+                </div>
+                <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Design Tools</h3>
+                    <p>Figma, Adobe XD (UI/UX principles)</p>
+                </div>
+                <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Other</h3>
+                    <p>AI Collaboration, Technical Writing, Problem Solving</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container" data-aos="fade-up">
+            <h2 class="text-center">My Projects</h2>
+            <div class="project-grid">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://via.placeholder.com/600x400/3b82f6/FFFFFF?text=Project+1" alt="Project 1 Image">
+                    <div class="project-content">
+                        <h3>GitHub Pages Portfolio</h3>
+                        <p>このサイト自体がプロジェクト。最新のWeb技術とAIアシスタンスで構築。</p>
+                        <a href="https://github.com/hyodo925/hyodo925.github.io" class="project-link" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://via.placeholder.com/600x400/8b5cf6/FFFFFF?text=Project+2" alt="Project 2 Image">
+                    <div class="project-content">
+                        <h3>Coming Soon...</h3>
+                        <p>新しいアイデアを形にすべく、現在いくつかのプロジェクトが進行中です！</p>
+                        <a href="#" class="project-link">Learn More</a>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://via.placeholder.com/600x400/ef4444/FFFFFF?text=Project+3" alt="Project 3 Image">
+                    <div class="project-content">
+                        <h3>Coming Soon...</h3>
+                        <p>あなたのビジネスやアイデアをWebで表現するお手伝いをします。</p>
+                        <a href="#" class="project-link">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container" data-aos="fade-up">
+            <h2 class="text-center">Contact Me</h2>
+            <form action="https://formspree.io/f/your_form_id" method="POST"> <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+            <p class="text-center" style="margin-top: 20px; color: var(--text-secondary);" data-aos="fade-up" data-aos-delay="200">
+                お気軽にお問い合わせください！24時間以内にご返信いたします。
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        &copy; 2026 Hyodo. All rights reserved. <br> Powered by GitHub Pages & Gemini.
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true }); // アニメーションの速度と1回のみ実行の設定
+        AOS.init({
+            duration: 1000,
+            once: true, // アニメーションは一度だけ実行
+            mirror: false // スクロールアップで再アニメーションしない
+        });
+
+        // Smooth Scroll & Active Nav Link
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Remove active class from all links
+                document.querySelectorAll('.header nav ul li a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                // Add active class to the clicked link
+                this.classList.add('active');
+
+                // Close mobile menu if open
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+        const mainNav = document.getElementById('mainNav');
+
+        mobileMenuIcon.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+
+        // Set initial active link based on current hash (if page loaded with a hash)
+        window.addEventListener('load', () => {
+            if (window.location.hash) {
+                const target = document.querySelector(`.header nav ul li a[href="${window.location.hash}"]`);
+                if (target) {
+                    target.classList.add('active');
+                    document.querySelector(window.location.hash).scrollIntoView();
+                }
+            } else {
+                // Default to 'Home' if no hash
+                document.querySelector('.header nav ul li a[href="#hero"]').classList.add('active');
+            }
+        });
+
+        // Highlight active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.header nav ul li a');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - var(--header-height); /* Adjust for fixed header */
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
     </script>
 </body>
 </html>
