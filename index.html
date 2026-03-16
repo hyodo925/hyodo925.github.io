@@ -583,40 +583,30 @@
             mainNav.classList.toggle('active');
         });
 
-        // Set initial active link based on current hash (if page loaded with a hash)
-        window.addEventListener('load', () => {
-            if (window.location.hash) {
-                const target = document.querySelector(`.header nav ul li a[href="${window.location.hash}"]`);
-                if (target) {
-                    target.classList.add('active');
-                    document.querySelector(window.location.hash).scrollIntoView();
-                }
-            } else {
-                // Default to 'Home' if no hash
-                document.querySelector('.header nav ul li a[href="#hero"]').classList.add('active');
+        window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.header nav ul li a');
+
+        // 1. Get the header height from CSS
+        const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 0;
+
+        let current = '';
+        sections.forEach(section => {
+            // 2. Use the variable in the math
+            const sectionTop = section.offsetTop - headerHeight; 
+            
+            if (window.pageYOffset >= sectionTop) {
+                current = section.getAttribute('id');
             }
         });
 
-        // Highlight active nav link on scroll
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('.section');
-            const navLinks = document.querySelectorAll('.header nav ul li a');
-
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - var(--header - height); /* Adjust for fixed header */
-                if (pageYOffset >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (current && link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
         });
+    });
 
     </script>
 </body>
