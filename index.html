@@ -145,7 +145,6 @@
 
         /* Hero Section */
         #hero {
-            text-align: center;
             height: 100vh;
             /* Full viewport height */
             background: radial-gradient(circle at 50% 50%, var(--bg-light) 0%, var(--bg-dark) 100%);
@@ -165,8 +164,47 @@
         #hero p {
             font-size: clamp(1rem, 2.5vw, 1.4rem);
             color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 40px;
+            margin-bottom: 20px;
+        }
+
+        .hero-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .hero-highlight {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .hero-description {
+            max-width: 520px;
+        }
+
+        .hero-image {
+            flex: 0 0 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 6px solid rgba(59, 130, 246, 0.65);
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.6);
         }
 
         .hero-button {
@@ -423,6 +461,18 @@
             .section {
                 padding: 60px 0;
             }
+            .hero-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .hero-image {
+                margin-top: 40px;
+            }
         }
     </style>
 </head>
@@ -444,13 +494,21 @@
     </header>
 
     <section id="hero" class="section">
-        <div class="container" data-aos="fade-up">
-            <h1>Hi, I'm Hyodo.</h1>
-            <p>
-                GitHub Pagesを活用し、モダンでレスポンシブなウェブサイトを構築しています。<br>
-                最新技術とデザインを融合させ、情報を魅力的に伝えるお手伝いをします。
-            </p>
-            <a href="#projects" class="hero-button" data-aos="zoom-in" data-aos-delay="600">My Projects</a>
+        <div class="container hero-inner" data-aos="fade-up">
+            <div class="hero-text">
+                <h1>Hi, I'm Hyodo.</h1>
+                <p class="hero-highlight">
+                    モダンな体験を高速に届けることを信条とし、ビジネスに説得力のある語りを紡ぎます。
+                </p>
+                <p class="hero-description">
+                    GitHub Pagesをベースに、レスポンシブなインターフェースとシームレスなアニメーションで構成されたサイトを構築しています。
+                    ブランディング・UI・UXの一貫性を守りながら、訪問者が自然に次のアクションを取れる状態を目指しています。
+                </p>
+                <a href="#projects" class="hero-button" data-aos="zoom-in" data-aos-delay="600">My Projects</a>
+            </div>
+            <div class="hero-image" data-aos="fade-left" data-aos-delay="400">
+                <img src="https://via.placeholder.com/320x320/0f172a/ffffff?text=Hyodo" alt="Hyodo's Portrait">
+            </div>
         </div>
     </section>
 
