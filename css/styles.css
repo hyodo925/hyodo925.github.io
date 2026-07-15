@@ -11038,3 +11038,55 @@ h3, .h3 {
   letter-spacing: 0.04rem;
   text-transform: none;
 }
+
+/* Publications */
+.publications-list {
+  padding-left: 1.25rem;
+  list-style: decimal;
+}
+
+.publication-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.publication-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.publication-body {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.publication-authors strong {
+  font-weight: 700;
+}
+
+.pub-award {
+  color: #c0392b;
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+.pub-pdf {
+  flex-shrink: 0;
+  white-space: nowrap;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.pub-pdf-placeholder {
+  flex-shrink: 0;
+  width: 3.25rem;
+}
